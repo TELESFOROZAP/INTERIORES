@@ -1,0 +1,426 @@
+$CATEGORY: ICT - Dificultad media
+
+::M01::¿Qué reglamento se identifica en el tema como el que regula las Infraestructuras Comunes de Telecomunicación (ICT)? {
+=Reglamento de Infraestructuras Comunes de Telecomunicación
+~Reglamento Electrotécnico para Baja Tensión
+~Código Técnico de la Edificación
+~Reglamento de Instalaciones Térmicas en los Edificios
+}
+
+::M02::¿Cuál de las siguientes instalaciones aparece incluida dentro de la ICT según el tema? {
+=Servicio de telefonía disponible al público (STDP)
+~Instalación de climatización del edificio
+~Red de abastecimiento de agua
+~Instalación de gas
+}
+
+::M03::¿Qué ventaja de las ICT se destaca respecto a la evolución tecnológica? {
+=Están diseñadas para albergar futuros avances tecnológicos en telecomunicaciones
+~Evitan la necesidad de realizar cualquier mantenimiento
+~Permiten eliminar todos los equipos activos
+~Sustituyen siempre la instalación eléctrica del edificio
+}
+
+::M04::¿Qué recinto se sitúa en la parte inferior del edificio y desde el que arranca la canalización principal? {
+=RITI
+~RITS
+~RTR
+~RITM
+}
+
+::M05::¿Qué recinto puede acumular la funcionalidad del RITI y del RITS en viviendas unifamiliares? {
+=RITU
+~RITM
+~RTR
+~RTP
+}
+
+::M06::¿Qué recinto único ampliado se contempla para determinados edificios o conjuntos inmobiliarios de más de tres alturas y planta baja, con un máximo de 16 PAU? {
+=RITU-A
+~RITI
+~RITS
+~RTR
+}
+
+::M07::¿Qué tipo de recinto está previsto para edificaciones de pisos de hasta cuarenta y cinco PAU y conjuntos de viviendas unifamiliares mediante armarios modulares? {
+=RITM
+~RITU-A
+~RITS
+~RTR
+}
+
+::M08::¿Dónde deben ubicarse los registros secundarios? {
+=En zona comunitaria y de fácil acceso
+~En el interior de cada dormitorio
+~Exclusivamente en el RITS
+~Dentro de los registros de toma
+}
+
+::M09::¿En cuál de estas situaciones debe colocarse un registro secundario? {
+=En cada cambio de dirección o bifurcación de la canalización principal
+~Únicamente junto a cada toma de corriente
+~Solo en el interior de los locales comerciales
+~Únicamente en la planta superior
+}
+
+::M10::¿Cada qué longitud máxima de canalización principal se indica que debe colocarse como mínimo un registro secundario? {
+=30 m
+~15 m
+~20 m
+~50 m
+}
+
+::M11::¿Cuál es la función principal de la canalización secundaria? {
+=Soportar la red de dispersión y unir los registros secundarios con los registros de terminación de red
+~Unir directamente el contador eléctrico con el RITI
+~Alimentar eléctricamente los equipos de cabecera
+~Conectar exclusivamente las tomas de corriente
+}
+
+::M12::¿Cada qué longitud de las canalizaciones secundarias y de interior de usuario se indica como mínimo un registro de paso? {
+=15 m
+~10 m
+~20 m
+~30 m
+}
+
+::M13::¿Qué radio de curvatura inferior obliga a colocar un registro de paso en viviendas cuando se produce un cambio de dirección? {
+=120 mm
+~80 mm
+~150 mm
+~250 mm
+}
+
+::M14::¿Qué radio de curvatura inferior se toma como referencia para locales, oficinas y estancias comunes al decidir la colocación de un registro de paso? {
+=250 mm
+~120 mm
+~150 mm
+~300 mm
+}
+
+::M15::¿Cuál es el máximo de curvas de 90° admitido entre dos registros de paso? {
+=Dos
+~Una
+~Tres
+~Cuatro
+}
+
+::M16::¿Qué condición debe cumplir el radio de curvatura de la canalización para no producir radios inferiores a 2 cm en los cables? {
+=No debe provocar en los cables radios de curvatura inferiores a 2 cm
+~Debe ser siempre inferior a 2 cm
+~Debe ser exactamente de 2 mm
+~Debe coincidir siempre con el diámetro del tubo
+}
+
+::M17::¿Dónde se instalan los registros de terminación de red (RTR)? {
+=En el interior de la vivienda, local u oficina
+~Exclusivamente en el RITI
+~En el exterior del edificio
+~Solo en el cuarto de máquinas del ascensor
+}
+
+::M18::¿Qué configuración se utiliza en la canalización interior de usuario? {
+=Configuración en estrella
+~Configuración exclusivamente en anillo
+~Configuración exclusivamente en bus
+~Configuración exclusivamente en árbol
+}
+
+::M19::Cuando la canalización interior de usuario se realiza mediante tubos, ¿qué diámetro exterior mínimo se indica para los tubos que unen el RTR con los registros de toma? {
+=20 mm
+~16 mm
+~25 mm
+~32 mm
+}
+
+::M20::En una canalización interior de usuario mediante canales, ¿cuántos espacios independientes como mínimo deben existir para alojar los distintos tipos de cables? {
+=Tres
+~Dos
+~Cuatro
+~Cinco
+}
+
+::M21::¿Qué servicio se asocia al espacio destinado a cables de pares trenzados en una canalización interior mediante canales? {
+=Servicios de TBA
+~Servicios de RTV
+~Alimentación eléctrica del edificio
+~Alumbrado de emergencia
+}
+
+::M22::¿Qué espacio de una canalización interior mediante canales está destinado a los cables coaxiales para servicios de RTV? {
+=El espacio específico para servicios de RTV
+~El espacio de pares trenzados
+~El espacio de cables coaxiales de TBA
+~El espacio de alimentación eléctrica
+}
+
+::M23::¿Qué distancia respecto del suelo deben respetar, según el tema, las envolventes de los registros? {
+=Una distancia mínima de 200 mm y máxima de 2300 mm
+~Una distancia mínima de 50 mm y máxima de 500 mm
+~Una distancia mínima de 100 mm y máxima de 1500 mm
+~Una distancia mínima de 500 mm y máxima de 3000 mm
+}
+
+::M24::¿Qué deben incorporar las tapas de las envolventes de los registros? {
+=Ser abatibles y permitir la apertura
+~Ser siempre completamente desmontables con herramientas
+~Ser transparentes obligatoriamente
+~Estar fijadas de forma permanente sin apertura
+}
+
+::M25::Si un registro alberga equipos activos, ¿qué requisito adicional se indica? {
+=Debe disponer de una rejilla de ventilación capaz de evacuar el calor producido
+~Debe quedar completamente sellado
+~Debe eliminarse la toma de corriente
+~Debe colocarse siempre en el exterior
+}
+
+::M26::¿Qué normativa debe cumplir la instalación eléctrica de los recintos de telecomunicaciones? {
+=El Reglamento Electrotécnico para Baja Tensión (REBT)
+~El reglamento de instalaciones térmicas
+~La normativa de instalaciones de gas
+~La normativa de protección contra incendios como única regulación
+}
+
+::M27::¿Qué diámetro exterior mínimo se indica para las canalizaciones eléctricas que parten de la centralización de contadores hacia los recintos de telecomunicaciones? {
+=32 mm
+~20 mm
+~25 mm
+~40 mm
+}
+
+::M28::¿Cuántas bases de enchufe con toma de tierra se indican como mínimo en cada recinto? {
+=Dos
+~Una
+~Tres
+~Cuatro
+}
+
+::M29::¿Qué nivel de iluminación se menciona como referencia para los recintos de telecomunicaciones? {
+=300 lux
+~100 lux
+~200 lux
+~500 lux
+}
+
+::M30::¿Qué dimensión mínima se indica para la placa identificativa situada en los recintos de instalaciones de telecomunicación? {
+=200 × 200 mm
+~100 × 100 mm
+~150 × 150 mm
+~300 × 300 mm
+}
+
+$CATEGORY: ICT - Dificultad alta
+
+::A01::Una canalización principal presenta un cambio de dirección y además se encuentra en un tramo de 30 m. ¿Qué criterio del tema justifica la instalación de un registro secundario? {
+=El cambio de dirección y el cumplimiento del tramo máximo indicado de 30 m
+~Solo la presencia de una toma de usuario cercana
+~Únicamente que el edificio tenga RITU
+~Solo que la canalización utilice tubos de 20 mm
+}
+
+::A02::En una canalización secundaria se produce un cambio de dirección cuyo radio es inferior a 120 mm en una vivienda. ¿Qué consecuencia se desprende del criterio indicado en el tema? {
+=Debe disponerse un registro de paso
+~Debe sustituirse siempre por una canalización eléctrica
+~Debe eliminarse el registro secundario
+~Debe instalarse obligatoriamente un RITS
+}
+
+::A03::Entre dos registros de paso de una canalización se proyectan tres curvas de 90°. ¿Qué opción se ajusta al criterio del tema? {
+=La configuración no cumple el máximo de dos curvas de 90° entre registros
+~La configuración cumple porque se admiten hasta cuatro curvas
+~La configuración cumple siempre que el tubo sea metálico
+~La configuración solo depende del número de PAU
+}
+
+::A04::Una vivienda utiliza canalización interior mediante canales. ¿Qué organización de espacios se ajusta al tema? {
+=Tres espacios independientes para pares trenzados, coaxiales de TBA y coaxiales de RTV
+~Dos espacios, uno para todos los cables de TBA y otro para RTV
+~Un único espacio común para todos los cables
+~Cuatro espacios obligatorios, incluyendo uno exclusivo de alimentación eléctrica
+}
+
+::A05::Se decide instalar el RTR mediante dos envolventes adyacentes en lugar de una única envolvente. ¿Qué condición aparece en el tema? {
+=Las dos envolventes deben estar comunicadas y una se dedica íntegramente a equipos activos
+~Las dos envolventes deben estar separadas sin comunicación
+~Ambas deben dedicarse exclusivamente a RTV
+~Una de ellas debe instalarse obligatoriamente en el RITS
+}
+
+::A06::Para una opción empotrable en tabique del RTR, ¿qué conjunto de dimensiones se indica como mínimo? {
+=500 × 600 × 80 mm
+~300 × 400 × 300 mm
+~200 × 300 × 60 mm
+~100 × 160 × 40 mm
+}
+
+::A07::En una opción del RTR empotrable en otro elemento constructivo y con disposición del equipamiento principalmente horizontal, ¿qué dimensiones mínimas se indican? {
+=300 × 400 × 300 mm
+~500 × 600 × 80 mm
+~500 × 300 × 80 mm
+~200 × 300 × 60 mm
+}
+
+::A08::Si se independizan en dos envolventes los servicios SDTP/TBA y RTV, ¿qué dimensión mínima se indica para la envolvente dedicada a RTV? {
+=200 × 300 × 60 mm
+~300 × 400 × 300 mm
+~500 × 600 × 80 mm
+~100 × 160 × 40 mm
+}
+
+::A09::En un local comercial u oficina se opta por una canalización interior mediante bandejas. ¿Qué condición recoge el tema? {
+=Se admite el uso de bandejas bajo las condiciones de instalación previstas en el reglamento
+~Las bandejas están prohibidas en todos los casos
+~Las bandejas sustituyen obligatoriamente al RTR
+~Las bandejas solo pueden utilizarse para alimentación eléctrica
+}
+
+::A10::En una vivienda, los registros de toma se sitúan a una distancia determinada de una toma de corriente. ¿Cuál es la distancia máxima indicada en el tema? {
+=500 mm
+~200 mm
+~300 mm
+~1000 mm
+}
+
+::A11::Según el ejemplo de distribución de una vivienda del tema, ¿qué combinación corresponde al salón-comedor? {
+=Tres BAT telefónicas, una toma coaxial de banda ancha, una toma RTV y una roseta de fibra óptica de banda ancha
+~Una BAT telefónica, dos tomas RTV y ninguna toma de banda ancha
+~Dos tomas coaxiales de RTV y una toma eléctrica
+~Cuatro BAT telefónicas y ninguna toma de banda ancha
+}
+
+::A12::En el ejemplo de la vivienda del tema, ¿qué estancia no recibe registros de toma de telecomunicaciones? {
+=Baño y trastero
+~Salón-comedor
+~Dormitorio principal
+~Cocina
+}
+
+::A13::En la centralización de contadores se debe prever espacio para posibles compañías operadoras. ¿Para qué se reserva ese espacio? {
+=Para la colocación de al menos dos contadores de energía eléctrica destinados a posibles compañías operadoras de telecomunicación
+~Para instalar dos RITI adicionales
+~Para ubicar los registros de toma de todas las viviendas
+~Para alojar exclusivamente los equipos de cabecera de RTV
+}
+
+::A14::¿Qué dispositivo se indica para garantizar el seccionamiento de la alimentación cuando se detecta una fuga o derivación a tierra? {
+=Un dispositivo de protección que garantice el seccionamiento de la alimentación
+~Un amplificador de señal RTV
+~Un registro de paso tipo C
+~Un transformador de frecuencia
+}
+
+::A15::¿Qué sección mínima de los conductores de cobre con aislamiento 450/750 V se indica para la alimentación de los recintos? {
+=2 + TT × 6 mm²
+~2 + TT × 2,5 mm²
+~3 + TT × 1,5 mm²
+~2 + TT × 10 mm²
+}
+
+::A16::En los recintos, ¿qué elemento se exige como mínimo para la alimentación eléctrica de los equipos? {
+=Dos bases de enchufe con toma de tierra y circuitos diferenciados según las funciones indicadas
+~Una única base sin toma de tierra
+~Una base exclusiva para iluminación
+~Dos bases sin protección magnetotérmica
+}
+
+::A17::¿Qué afirmación relaciona correctamente el protocolo de pruebas con la empresa instaladora? {
+=La empresa instaladora debe realizar las comprobaciones y entregar la documentación correspondiente al finalizar los trabajos
+~El protocolo lo realiza exclusivamente el propietario sin intervención de la empresa
+~El protocolo sustituye al proyecto técnico
+~El protocolo solo se realiza antes de comenzar la instalación
+}
+
+::A18::¿Qué tres situaciones de estado de la instalación se contemplan en la identificación derivada de la inspección técnica? {
+=No precisa trabajos inmediatos; precisa mantenimiento general preventivo; precisa actuaciones correctivas
+~Nueva; antigua; provisional
+~Correcta; incorrecta; anulada
+~Interior; exterior; subterránea
+}
+
+::A19::¿Qué documentación aparece asociada a la ejecución y finalización de una instalación ICT? {
+=Proyecto técnico, documentación de la instalación y protocolo de pruebas, según corresponda
+~Solo un plano de planta
+~Únicamente el presupuesto de materiales
+~Solo el certificado de iluminación
+}
+
+::A20::En el montaje profesional de una canalización ICT para un edificio de tres plantas, ¿qué se plantea como mínimo para la canalización secundaria de cada planta? {
+=Cuatro tubos de 25 mm de diámetro
+~Dos tubos de 20 mm de diámetro
+~Tres tubos de 16 mm de diámetro
+~Cinco tubos de 32 mm de diámetro
+}
+
+$CATEGORY: ICT - Dificultad extrema
+
+::E01::Se proyecta una vivienda con canalización interior mediante tubos. Se desea separar los servicios mediante recorridos independientes desde el RTR hasta los registros de toma. ¿Qué solución coincide con el criterio del tema? {
+=Utilizar tubos independientes de 20 mm de diámetro exterior mínimo para unir el RTR con los distintos registros de toma
+~Utilizar un único tubo de 20 mm para todos los servicios
+~Utilizar tubos independientes de 10 mm exclusivamente para RTV
+~Utilizar un único tubo de 32 mm reservado a telefonía
+}
+
+::E02::En una canalización secundaria de una vivienda se plantea un cambio de dirección con radio inferior a 120 mm y, además, se supera el tramo de 15 m sin registro de paso. ¿Qué interpretación es más adecuada? {
+=Se incumplen dos criterios independientes que justifican la disposición de registros de paso
+~Solo importa el criterio de longitud, porque el radio no afecta
+~Solo importa el radio, porque la longitud nunca condiciona la instalación
+~No existe ningún incumplimiento si el tubo es de plástico
+}
+
+::E03::Un técnico quiere colocar un registro secundario únicamente al final de cada planta. La canalización principal tiene una bifurcación intermedia y un tramo continuo de 30 m. ¿Qué valoración se ajusta al tema? {
+=La bifurcación y el criterio de longitud deben tenerse en cuenta para ubicar registros secundarios
+~Solo debe tenerse en cuenta el final de la planta
+~Los registros secundarios solo dependen del número de tomas
+~La bifurcación se resuelve siempre con un registro de toma
+}
+
+::E04::Se compara una instalación con RITI y RITS independientes con otra de viviendas unifamiliares que concentra ambas funciones. ¿Qué recinto representa la segunda solución? {
+=RITU
+~RITM
+~RTR
+~RITU-A
+}
+
+::E05::Un edificio cumple las condiciones indicadas para utilizar un recinto único ampliado: más de tres alturas y planta baja y un máximo de 16 PAU. ¿Qué recinto corresponde? {
+=RITU-A
+~RITU
+~RITM
+~RITS
+}
+
+::E06::Una instalación interior mediante canales debe transportar pares trenzados, coaxiales de TBA y coaxiales de RTV. El instalador pretende colocarlos juntos en un solo espacio para ahorrar sección. ¿Qué decisión es compatible con el tema? {
+=Debe mantener tres espacios independientes, uno para cada tipo de servicio indicado
+~Puede utilizar un único espacio si aumenta el diámetro
+~Debe utilizar dos espacios, agrupando pares y coaxiales
+~Debe separar únicamente los cables de RTV
+}
+
+::E07::Se diseña un RTR con dos envolventes adyacentes. Una se reserva para equipos activos y la otra para RTV. ¿Qué condición adicional debe verificarse? {
+=Las envolventes deben estar comunicadas entre sí y la destinada a RTV debe cumplir las dimensiones mínimas indicadas
+~Las envolventes deben estar totalmente aisladas entre sí
+~La envolvente de equipos activos no puede tener ventilación
+~La envolvente de RTV debe ser siempre de 100 × 100 × 40 mm
+}
+
+::E08::En un recinto se instalan equipos activos cuya potencia disipada genera calor. ¿Qué solución constructiva se desprende directamente del tema? {
+=La envolvente debe disponer de ventilación capaz de evacuar el calor producido
+~La envolvente debe quedar herméticamente cerrada
+~Debe eliminarse la alimentación eléctrica
+~Debe reducirse la distancia al suelo por debajo de 200 mm
+}
+
+::E09::Un proyecto eléctrico de una ICT debe alimentar recintos situados en RITI, RITS y RITU cuando proceda. ¿Qué característica comparten las canalizaciones previstas desde la centralización de contadores? {
+=Se prevén canalizaciones independientes hacia los recintos que correspondan, con diámetro exterior mínimo de 32 mm
+~Todas deben terminar exclusivamente en el RITI
+~Todas deben tener 20 mm de diámetro máximo
+~Solo se instala una canalización cuando existe RITS
+}
+
+::E10::Se revisa una instalación en la que los registros de toma están próximos a las bases de enchufe, pero algunas bases están a 700 mm del registro. ¿Qué conclusión se obtiene aplicando el valor indicado en el tema? {
+=La disposición no cumple la distancia máxima de 500 mm indicada
+~Cumple porque se admite hasta 700 mm
+~Cumple porque la distancia solo se aplica a locales comerciales
+~No puede evaluarse porque el tema no establece ninguna distancia
+}
+
