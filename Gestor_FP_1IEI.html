@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor Docente FP - 1º IEI</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: #f1f5f9; color: #1e293b; padding-bottom: 30px; }
+        header { background-color: #0f172a; color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 20px; color: #fbbf24; }
+        header p { font-size: 12px; color: #94a3b8; }
+        
+        /* NAVEGACIÓN Y PESTAÑAS */
+        nav { background-color: #1e293b; display: flex; overflow-x: auto; border-bottom: 2px solid #334155; }
+        .nav-tab { background: none; border: none; color: #cbd5e1; padding: 14px 20px; font-size: 14px; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
+        .nav-tab:hover { background-color: rgba(255,255,255,0.05); color: #ffffff; }
+        .nav-tab.active { color: #fbbf24; border-bottom-color: #fbbf24; background-color: rgba(255,255,255,0.1); }
+        
+        main { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+        .card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .card-header { font-size: 18px; font-weight: bold; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .alumno-box { border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; background-color: #f8fafc; }
+        .alumno-name { font-weight: bold; font-size: 14px; display: flex; justify-content: space-between; margin-bottom: 6px; }
+        .badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: white; }
+        .badge-warning { background-color: #f59e0b; }
+        .badge-danger { background-color: #ef4444; }
+        .badge-tema { background-color: #0284c7; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .badge-dif { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: white; }
+        .dif-medio { background-color: #10b981; }
+        .dif-alto { background-color: #f59e0b; }
+        .dif-extrema { background-color: #ef4444; }
+        .btn-group { display: flex; gap: 8px; margin-top: 10px; }
+        .btn { padding: 6px 12px; border: none; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; flex: 1; text-align: center; }
+        .btn-primary { background-color: #0284c7; color: white; }
+        .btn-primary:hover { background-color: #0369a1; }
+        .btn-add { background-color: #fee2e2; color: #991b1b; }
+        .btn-add:hover { background-color: #fecaca; }
+        .btn-sub { background-color: #e2e8f0; color: #334155; }
+        .btn-sub:hover { background-color: #cbd5e1; }
+        .btn-success { background-color: #16a34a; color: white; padding: 10px 20px; font-size: 14px; }
+        .btn-success:hover { background-color: #15803d; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+        th, td { padding: 10px; border: 1px solid #e2e8f0; }
+        th { background-color: #0f172a; color: white; }
+        th.th-final { background-color: #d97706; }
+        input[type="number"], select, input[type="text"], textarea { padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; }
+        input[type="number"] { width: 65px; text-align: center; }
+        .tarea-box { border: 1px solid #cbd5e1; border-radius: 6px; padding: 16px; background-color: #f8fafc; margin-bottom: 16px; }
+        .tarea-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .tarea-title { font-size: 15px; font-weight: bold; color: #0f172a; }
+        .tarea-desc { font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 12px; white-space: pre-line; background: white; padding: 10px; border-radius: 4px; border: 1px solid #e2e8f0; }
+        .pregunta-card { border: 1px solid #cbd5e1; border-radius: 6px; padding: 14px; background-color: white; margin-bottom: 12px; }
+        .pregunta-card.correcta { border-color: #22c55e; background-color: #f0fdf4; }
+        .pregunta-card.incorrecta { border-color: #ef4444; background-color: #fef2f2; }
+        .pregunta-title { font-size: 14px; font-weight: bold; color: #0f172a; margin-bottom: 10px; }
+        .opciones-interactive { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+        .opcion-label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #334155; padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; }
+        .opcion-label:hover { background-color: #f1f5f9; }
+        .opcion-label input[type="radio"] { cursor: pointer; width: 16px; height: 16px; accent-color: #0284c7; }
+        .opcion-correcta-highlight { font-weight: bold; color: #166534; background-color: #dcfce7; border-color: #86efac; }
+        .opcion-incorrecta-highlight { font-weight: bold; color: #991b1b; background-color: #fee2e2; border-color: #fca5a5; }
+        .explicacion { font-size: 12px; color: #475569; background: #f1f5f9; padding: 10px; border-radius: 6px; margin-top: 10px; border-left: 4px solid #0284c7; }
+        .score-banner { background: #0f172a; color: white; padding: 16px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .score-val { font-size: 28px; font-weight: bold; color: #fbbf24; }
+        
+        /* SECCIONES Y VISIBILIDAD */
+        .tab-content { display: none; }
+        .tab-content.active-section { display: block !important; }
+        .hidden { display: none !important; }
+        
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #334155; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; }
+        @media print {
+            header, nav, .btn, .no-print, .score-banner { display: none !important; }
+            body { background: white; padding: 0; }
+            main { max-width: 100%; margin: 0; padding: 0; }
+            .card { box-shadow: none; border: none; padding: 0; }
+            .pregunta-card { page-break-inside: avoid; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>⚡ Gestor Docente FP - 1º IEI</h1>
+            <p>Instalaciones Eléctricas de Interior | 1ª Evaluación (Temas 1 al 4)</p>
+        </div>
+    </header>
+
+    <!-- NAVEGACIÓN -->
+    <nav>
+        <button id="btn-alumnos" class="nav-tab active" onclick="mostrarSeccion('alumnos')">👥 Alumnos (<span id="count-alumnos">25</span>)</button>
+        <button id="btn-tareas" class="nav-tab" onclick="mostrarSeccion('tareas')">📌 Tareas por Tema (4)</button>
+        <button id="btn-tests" class="nav-tab" onclick="mostrarSeccion('tests')">📝 Tests Interactivos (60)</button>
+        <button id="btn-calificaciones" class="nav-tab" onclick="mostrarSeccion('calificaciones')">🧮 Calificaciones (40-30-20-10)</button>
+        <button id="btn-esquemas" class="nav-tab" onclick="mostrarSeccion('esquemas')">📐 Esquemas Multifilares (10)</button>
+        <button id="btn-practicas" class="nav-tab" onclick="mostrarSeccion('practicas')">🛠️ 10 Prácticas Taller</button>
+    </nav>
+
+    <main>
+        <!-- SECCIÓN 1: ALUMNOS -->
+        <section id="sec-alumnos" class="card tab-content active-section">
+            <div class="card-header">
+                <span>Lista de Alumnos y Asistencia</span>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button class="btn btn-primary" onclick="toggleFormAlumno()">➕ Añadir Alumno</button>
+                    <span style="font-size: 12px; background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px;" id="badge-total-alumnos">25 Estudiantes</span>
+                </div>
+            </div>
+
+            <!-- FORMULARIO NUEVO ALUMNO -->
+            <div id="form-alumno-container" class="tarea-box hidden" style="background: #e0f2fe; border-color: #38bdf8;">
+                <h3 style="margin-bottom: 12px; font-size: 14px; color: #0369a1;">Añadir Nuevo Estudiante</h3>
+                <div class="form-group">
+                    <label>Nombre Completo:</label>
+                    <input type="text" id="na-nombre" placeholder="Ej: Carlos Gómez Pérez">
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-primary" onclick="guardarNuevoAlumno()">Guardar Alumno</button>
+                    <button class="btn btn-sub" onclick="toggleFormAlumno()">Cancelar</button>
+                </div>
+            </div>
+
+            <div id="grid-alumnos" class="grid"></div>
+        </section>
+
+        <!-- SECCIÓN 2: TAREAS -->
+        <section id="sec-tareas" class="card tab-content">
+            <div class="card-header">
+                <span>Gestión de Tareas de Casa (20% Nota Final)</span>
+                <button class="btn btn-primary" style="flex: none;" onclick="toggleFormTarea()">➕ Nueva Tarea</button>
+            </div>
+            <div id="form-tarea-container" class="tarea-box hidden" style="background: #e0f2fe; border-color: #38bdf8;">
+                <h3 style="margin-bottom: 12px; font-size: 14px; color: #0369a1;">Crear Nueva Tarea</h3>
+                <div class="form-group">
+                    <label>Tema de la 1ª Evaluación:</label>
+                    <select id="nt-tema">
+                        <option value="Tema 1">Tema 1: Circuitos Eléctricos Básicos I</option>
+                        <option value="Tema 2">Tema 2: Circuitos Eléctricos Básicos II</option>
+                        <option value="Tema 3">Tema 3: Normativa y Reglamentación (REBT)</option>
+                        <option value="Tema 4">Tema 4: Instalaciones Eléctricas en Viviendas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Título de la Tarea:</label>
+                    <input type="text" id="nt-titulo" placeholder="Ej: Esquema multifilar de conmutada desde 3 puntos">
+                </div>
+                <div class="form-group">
+                    <label>Enunciado y Actividades:</label>
+                    <textarea id="nt-desc" rows="4" placeholder="Escribe aquí las instrucciones detalladas para los alumnos..."></textarea>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-primary" onclick="guardarNuevaTarea()">Guardar y Asignar Tarea</button>
+                    <button class="btn btn-sub" onclick="toggleFormTarea()">Cancelar</button>
+                </div>
+            </div>
+            <div style="margin-bottom: 16px; display: flex; align-items: center; gap: 10px;" class="no-print">
+                <label style="font-size: 13px; font-weight: bold;">Filtrar por Tema:</label>
+                <select id="filtro-tema-tarea" onchange="renderTareas()">
+                    <option value="TODOS">Todos los Temas (1 al 4)</option>
+                    <option value="Tema 1">Tema 1: Circuitos Básicos I</option>
+                    <option value="Tema 2">Tema 2: Circuitos Básicos II</option>
+                    <option value="Tema 3">Tema 3: REBT</option>
+                    <option value="Tema 4">Tema 4: Viviendas</option>
+                </select>
+            </div>
+            <div id="lista-tareas"></div>
+        </section>
+
+        <!-- SECCIÓN 3: TESTS -->
+        <section id="sec-tests" class="card tab-content">
+            <div class="card-header">
+                <span>Banco de 60 Preguntas de Test Autocorregibles</span>
+                <button class="btn btn-primary no-print" style="flex: none;" onclick="window.print()">🖨️ Imprimir Examen</button>
+            </div>
+            
+            <div id="score-banner" class="score-banner hidden">
+                <div>
+                    <h3 style="font-size: 16px;">Resultado del Test</h3>
+                    <p style="font-size: 12px; color: #cbd5e1;" id="score-details">Respondidas: 0 | Aciertos: 0 | Fallos: 0</p>
+                </div>
+                <div class="score-val" id="score-number">0.00 / 10</div>
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;" class="no-print">
+                <div>
+                    <label style="font-size: 12px; font-weight: bold; display: block;">Tema:</label>
+                    <select id="filtro-test-tema" onchange="resetAndRenderTests()">
+                        <option value="TODOS">Todos los Temas (1 al 4)</option>
+                        <option value="Tema 1">Tema 1: Circuitos Básicos I (15)</option>
+                        <option value="Tema 2">Tema 2: Circuitos Básicos II (15)</option>
+                        <option value="Tema 3">Tema 3: REBT (15)</option>
+                        <option value="Tema 4">Tema 4: Viviendas (15)</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size: 12px; font-weight: bold; display: block;">Dificultad:</label>
+                    <select id="filtro-test-dif" onchange="resetAndRenderTests()">
+                        <option value="TODOS">Todas las Dificultades</option>
+                        <option value="Medio">Medio (30 preguntas)</option>
+                        <option value="Alto">Alto (20 preguntas)</option>
+                        <option value="Extrema Dificultad">Extrema Dificultad (10 preguntas)</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size: 12px; font-weight: bold; display: block;">Modo de Vista:</label>
+                    <select id="modo-vista-test" onchange="renderTests()">
+                        <option value="INTERACTIVO">Modo Alumno (Interactivo con Casillas)</option>
+                        <option value="DOCENTE">Modo Docente (Con Solucionario Directo)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="lista-preguntas-tests"></div>
+
+            <div id="btn-calcular-container" class="no-print" style="margin-top: 20px; text-align: center;">
+                <button class="btn btn-success" onclick="calcularYCorregirTest()">🚀 Corregir y Calcular Nota del Test</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: CALIFICACIONES -->
+        <section id="sec-calificaciones" class="card tab-content">
+            <div class="card-header">
+                <span>Cálculo de Calificaciones Finales</span>
+            </div>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 14px;">Ponderación: Prácticas (40%) | Exámenes (30%) | Ejercicios Casa (20%) | Actitud/PRL (10%)</p>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Alumno</th>
+                            <th style="text-align: center;">Prácticas (40%)</th>
+                            <th style="text-align: center;">Exámenes (30%)</th>
+                            <th style="text-align: center;">Ejercicios (20%)</th>
+                            <th style="text-align: center;">Actitud (10%)</th>
+                            <th style="text-align: center;" class="th-final">Nota Final</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-calificaciones"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: ESQUEMAS -->
+        <section id="sec-esquemas" class="card tab-content">
+            <div class="card-header">
+                <span>Esquemas Multifilares de Taller</span>
+            </div>
+            <div id="lista-esquemas"></div>
+        </section>
+
+        <!-- SECCIÓN 6: PRÁCTICAS -->
+        <section id="sec-practicas" class="card tab-content">
+            <div class="card-header">
+                <span>Catálogo de Prácticas de Taller (1ª Evaluación)</span>
+            </div>
+            <div id="lista-practicas"></div>
+        </section>
+    </main>
+
+    <script>
+        function mostrarSeccion(nombreSeccion) {
+            const secciones = document.querySelectorAll('.tab-content');
+            secciones.forEach(sec => {
+                sec.classList.remove('active-section');
+                sec.style.display = 'none';
+            });
+
+            const botones = document.querySelectorAll('.nav-tab');
+            botones.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            const seccionActiva = document.getElementById('sec-' + nombreSeccion);
+            if (seccionActiva) {
+                seccionActiva.classList.add('active-section');
+                seccionActiva.style.display = 'block';
+            }
+
+            const botonActivo = document.getElementById('btn-' + nombreSeccion);
+            if (botonActivo) {
+                botonActivo.classList.add('active');
+            }
+        }
+
+        const ALUMNOS_NOMBRES_BASE = [
+            "Rubén Apolo Merín", "Jon Ander Barroso Sayago", "Sebastián Benítez Moriano",
+            "Álvaro Bravo Cordero", "Sergio Calero Rosa", "Iván Caro Fernández",
+            "José Luis De la Cruz Duelt", "Raúl Fernández de Soria Pachón", "Jonás García Guerrero",
+            "José Manuel González García", "Nicolás Guardiola Villabon", "Rubén Guerrero Silva",
+            "Alfonso Lancharro Domínguez", "Darío Lavado Pérez", "Marcos Marín Cabezas",
+            "Ismael Marín Navarro", "Alejandro Mendoza Álvarez", "Mario Ortiz Pérez",
+            "Juan Carlos Pardo Salas", "Mihai Robert Rosu Jeleriu", "Joel Alejandro Salinas Hernández",
+            "Iván Sánchez Báez", "Javier Silva Hormigo", "Iván Silvente Prado", "Antonio Torres Díaz"
+        ];
+
+        const ESQUEMAS = [
+            { id: 1, t: "1. Punto de luz simple", d: "Fase (Marrón) -> Interruptor S1 -> Vuelta (Gris) -> Lámpara L1 -> Neutro (Azul)." },
+            { id: 2, t: "2. 2 Lámparas en serie", d: "Fase -> Interruptor S1 -> L1 -> Puente -> L2 -> Neutro. (Reciben 115V cada una)." },
+            { id: 3, t: "3. 2 Lámparas en paralelo", d: "Fase -> Interruptor S1 -> Regleta desdobla Vuelta (Gris) a L1 y L2 -> Neutro común." },
+            { id: 4, t: "4. Circuito mixto serie-paralelo", d: "Vuelta de S1 se divide en Registro: Rama 1 (L1 en serie con L2) y Rama 2 (L3 en paralelo)." },
+            { id: 5, t: "5. Circuito mixto paralelo-serie", d: "Vuelta de S1 alimenta L1 y L2 en paralelo. Las salidas de ambas se unen y entran en serie a L3 -> Neutro." },
+            { id: 6, t: "6. Doble interruptor, indep. y enchufe", d: "Enchufe directo a L, N, PE (2.5mm²). S1 enciende L1+L2 (paralelo). S2 enciende L3." },
+            { id: 7, t: "7. Conmutación desde 2 puntos", d: "Fase a común de S1. Dos puentes (Negro/Marrón) conectan S1 con S2. Común de S2 va a L1 (Gris) -> Neutro." },
+            { id: 8, t: "8. Conmutada montaje corto", d: "S1 y S2 reciben Fase y Neutro en contactos no comunes. La Lámpara L1 se conecta entre los dos comunes." },
+            { id: 9, t: "9. Conmutada desde 3 puntos y enchufe", d: "Fase -> Común S1. Puentes -> Entrada Cruzamiento S2. Salida S2 -> Puentes -> S3. Común S3 -> L1+L2." },
+            { id: 10, t: "10. Alumbrado de Galería en cascada", d: "S1 (General) -> Común S2 -> L1 (No común A) ó Común S3 (No común B) -> L2 (No común A) ó Común S4 -> L3 / L4." }
+        ];
+
+        const PREGUNTAS_BANCO = [
+            { id: 1, tema: "Tema 1", dif: "Medio", preg: "1. ¿Cuál es la fórmula matemática de la Ley de Ohm?", ops: ["A) V = I / R", "B) V = I · R", "C) I = V · R", "D) R = I / V"], corr: 1, exp: "La Ley de Ohm establece que V = I · R." },
+            { id: 2, tema: "Tema 1", dif: "Medio", preg: "2. ¿Qué color asigna obligatoriamente el REBT al conductor de Neutro?", ops: ["A) Marrón", "B) Negro", "C) Azul claro", "D) Verde-Amarillo"], corr: 2, exp: "El Neutro debe ser siempre de color azul claro." },
+            { id: 3, tema: "Tema 1", dif: "Medio", preg: "3. ¿En qué unidad se mide la resistencia eléctrica?", ops: ["A) Voltios (V)", "B) Amperios (A)", "C) Ohmio (Ω)", "D) Vatios (W)"], corr: 2, exp: "La resistencia eléctrica se mide en Ohmios (Ω)." },
+            { id: 4, tema: "Tema 1", dif: "Medio", preg: "4. ¿Cómo debe conectarse un voltímetro para medir tensión?", ops: ["A) En serie", "B) En paralelo", "C) En cortocircuito", "D) Indiferente"], corr: 1, exp: "El voltímetro se conecta siempre en paralelo." },
+            { id: 5, tema: "Tema 1", dif: "Medio", preg: "5. Mecanismo para accionar un punto de luz desde un único punto:", ops: ["A) Conmutador de cruce", "B) Pulsador", "C) Interruptor simple", "D) Seleccionador"], corr: 2, exp: "Un interruptor simple abre o cierra un único circuito." },
+            { id: 6, tema: "Tema 1", dif: "Medio", preg: "6. ¿Qué ocurre con la resistencia total en serie al añadir receptores?", ops: ["A) Disminuye", "B) Se mantiene igual", "C) Aumenta", "D) Se anula"], corr: 2, exp: "En serie se suman las resistencias individuales (Rt = R1 + R2...)." },
+            { id: 7, tema: "Tema 1", dif: "Medio", preg: "7. 'Corte visible o efectivo' en las 5 Reglas de Oro:", ops: ["A) Primera regla para aislar la fuente de tensión", "B) Tercera regla", "C) Quinta regla", "D) No pertenece"], corr: 0, exp: "Es la 1ª Regla de Oro en seguridad eléctrica." },
+            { id: 8, tema: "Tema 1", dif: "Alto", preg: "8. Calefactor de 230V e I=10A. ¿Resistencia interna?", ops: ["A) 23 Ω", "B) 230 Ω", "C) 2.3 Ω", "D) 2300 Ω"], corr: 0, exp: "R = V / I = 230 / 10 = 23 Ω." },
+            { id: 9, tema: "Tema 1", dif: "Alto", preg: "9. Calentamiento de un conductor por paso de corriente:", ops: ["A) Efecto Fotoeléctrico", "B) Efecto Joule", "C) Efecto Peltier", "D) Efecto Faraday"], corr: 1, exp: "El efecto Joule calcula la energía disipada en calor (Q = I²·R·t)." },
+            { id: 10, tema: "Tema 1", dif: "Alto", preg: "10. Número de bornes de un conmutador simple:", ops: ["A) 2 bornes", "B) 3 bornes", "C) 4 bornes", "D) 6 bornes"], corr: 1, exp: "Posee 1 común y 2 bornes de salida para los puentes." },
+            { id: 11, tema: "Tema 1", dif: "Alto", preg: "11. Medir con amperímetro en paralelo a una lámpara provoca:", ops: ["A) Medida correcta", "B) Cortocircuito directo", "C) Doble intensidad", "D) Sin cambios"], corr: 1, exp: "Tiene resistencia interna casi nula; causa cortocircuito." },
+            { id: 12, tema: "Tema 1", dif: "Alto", preg: "12. Resistencia máxima de toma de tierra recomendada en viviendas:", ops: ["A) Menor a 15 Ω", "B) Mayor a 100 Ω", "C) 500 Ω", "D) 0 Ω"], corr: 0, exp: "Se exige que sea inferior a 15 Ω por buena práctica." },
+            { id: 13, tema: "Tema 1", dif: "Extrema Dificultad", preg: "13. Conductor A tiene el doble de diámetro que B (misma longitud). Relación Ra/Rb:", ops: ["A) Ra = Rb", "B) Ra = Rb / 2", "C) Ra = Rb / 4", "D) Ra = 2·Rb"], corr: 2, exp: "Al duplicar el diámetro, la sección cuatriplica y la resistencia se reduce a la cuarta parte." },
+            { id: 14, tema: "Tema 1", dif: "Extrema Dificultad", preg: "14. Intercambiar Fase con Vuelta en un contacto no común de conmutador:", ops: ["A) Funciona solo en una posición del segundo conmutador", "B) Cortocircuito", "C) Mitad de potencia", "D) Se quema"], corr: 0, exp: "Invalida el cruce normal de corriente." },
+            { id: 15, tema: "Tema 1", dif: "Extrema Dificultad", preg: "15. Cable 1.5mm², L=50m, I=10A, ρ=0.0178. Caída de tensión:", ops: ["A) 1.18 V", "B) 11.87 V", "C) 5.93 V", "D) 23.0 V"], corr: 1, exp: "e = (2 · 50 · 10 · 0.0178) / 1.5 = 11.87 V." },
+            { id: 16, tema: "Tema 2", dif: "Medio", preg: "16. En 2 lámparas en paralelo alimentadas a 230V, cada una recibe:", ops: ["A) 115 V", "B) 230 V", "C) 460 V", "D) 0 V"], corr: 1, exp: "En paralelo la tensión es idéntica en todas las ramas." },
+            { id: 17, tema: "Tema 2", dif: "Medio", preg: "17. Potencia activa monofásica inductiva:", ops: ["A) P = V · I", "B) P = V · I · cos φ", "C) P = V² / I", "D) P = I² / R"], corr: 1, exp: "P = V · I · cos φ incluye el factor de potencia." },
+            { id: 18, tema: "Tema 2", dif: "Medio", preg: "18. Para encender una luz desde 3 puntos se instalan:", ops: ["A) 3 conmutadores de cruce", "B) 2 conmutadores simples y 1 de cruce", "C) 3 interruptores", "D) 1 conmutador y 2 interruptores"], corr: 1, exp: "El conmutador de cruce va en medio de dos conmutadores simples." },
+            { id: 19, tema: "Tema 2", dif: "Medio", preg: "19. Resistencia equivalente de dos resistencias de 10 Ω en paralelo:", ops: ["A) 20 Ω", "B) 10 Ω", "C) 5 Ω", "D) 2.5 Ω"], corr: 2, exp: "Req = 10 / 2 = 5 Ω." },
+            { id: 20, tema: "Tema 2", dif: "Medio", preg: "20. En dos lámparas en serie de distinta potencia nominal, luce más:", ops: ["A) La de mayor potencia", "B) La de menor potencia", "C) Lucen igual", "D) Ninguna"], corr: 1, exp: "La de menor potencia tiene más resistencia y cae más tensión en ella." },
+            { id: 21, tema: "Tema 2", dif: "Medio", preg: "21. Definición de 'contacto directo':", ops: ["A) Tocar masa accidental con tensión", "B) Tocar parte activa en tensión", "C) Arco eléctrico", "D) Derivación"], corr: 1, exp: "Contacto directo es tocar partes conductoras activas de la instalación." },
+            { id: 22, tema: "Tema 2", dif: "Alto", preg: "22. Tres receptores de 100W en paralelo a 230V. Intensidad total:", ops: ["A) 1.30 A", "B) 0.43 A", "C) 3.00 A", "D) 13.0 A"], corr: 0, exp: "I = 300 / 230 = 1.30 A." },
+            { id: 23, tema: "Tema 2", dif: "Alto", preg: "23. Mecanismos en alumbrado de galería en cascada:", ops: ["A) Interruptores simples", "B) Interruptor general y conmutadores interconectados", "C) Pulsadores", "D) Contactores"], corr: 1, exp: "Transferencia en cadena del conductor de Fase." },
+            { id: 24, tema: "Tema 2", dif: "Alto", preg: "24. Cortar una rama en paralelo provoca que la I total:", ops: ["A) Aumente", "B) Disminuya", "C) Sea cero", "D) Dispare el PIA"], corr: 1, exp: "Al quitar receptores en paralelo disminuye la corriente global." },
+            { id: 25, tema: "Tema 2", dif: "Alto", preg: "25. Conmutada de cruce solo funciona en una posición del cruce:", ops: ["A) Lámpara fundida", "B) Puente cortado o mal conexionado", "C) Cable de tierra roto", "D) Baja tensión"], corr: 1, exp: "Uno de los conductores cruzados está abierto." },
+            { id: 26, tema: "Tema 2", dif: "Alto", preg: "26. Potencia consumida por R=46 Ω a 230V:", ops: ["A) 1150 W", "B) 2300 W", "C) 460 W", "D) 1000 W"], corr: 0, exp: "P = 230² / 46 = 1150 W." },
+            { id: 27, tema: "Tema 2", dif: "Extrema Dificultad", preg: "27. R1=20Ω y R2=30Ω en paralelo, en serie con R3=8Ω a 200V. Intensidad por R3:", ops: ["A) 10 A", "B) 4 A", "C) 20 A", "D) 2.5 A"], corr: 0, exp: "Req_p = 12Ω. R_total = 20Ω. I_total = 200 / 20 = 10 A." },
+            { id: 28, tema: "Tema 2", dif: "Extrema Dificultad", preg: "28. Motor de 230V, 1840W, cos φ = 0.8. Intensidad consumida:", ops: ["A) 8 A", "B) 10 A", "C) 12.5 A", "D) 6.4 A"], corr: 1, exp: "I = 1840 / (230 · 0.8) = 10 A." },
+            { id: 29, tema: "Tema 2", dif: "Extrema Dificultad", preg: "29. Prohibición de usar cable verde-amarillo para otros fines:", ops: ["A) Estética", "B) Evitar confusiones mortales en mantenimiento", "C) Rigidez", "D) Resistencia de cobre"], corr: 1, exp: "Uso exclusivo obligatorio para la red de protección de tierra (PE)." },
+            { id: 30, tema: "Tema 2", dif: "Extrema Dificultad", preg: "30. En circuito mixto paralelo-serie, cortocircuitar el receptor serie provoca en el paralelo:", ops: ["A) Se apagan", "B) Reciben la tensión total de red", "C) Funde fusibles", "D) Sin cambios"], corr: 1, exp: "El bloque paralelo pasa a soportar los 230V completos." },
+            { id: 31, tema: "Tema 3", dif: "Medio", preg: "31. Dispositivo contra sobrecargas y cortocircuitos:", ops: ["A) Diferencial", "B) PIA (Automático)", "C) Contactor", "D) Relé térmico"], corr: 1, exp: "El PIA cuenta con disparo magnetotérmico." },
+            { id: 32, tema: "Tema 3", dif: "Medio", preg: "32. Sensibilidad del diferencial de alta sensibilidad en viviendas:", ops: ["A) 300 mA", "B) 30 mA", "C) 10 mA", "D) 1 A"], corr: 1, exp: "Protección personal estándar de 30 mA." },
+            { id: 33, tema: "Tema 3", dif: "Medio", preg: "33. Sección mínima de cobre para circuito C1 (Alumbrado):", ops: ["A) 1.5 mm²", "B) 2.5 mm²", "C) 4 mm²", "D) 6 mm²"], corr: 0, exp: "Sección normalizada de 1.5 mm²." },
+            { id: 34, tema: "Tema 3", dif: "Medio", preg: "34. Sección mínima de cobre para circuito C2 (Tomas uso general):", ops: ["A) 1.5 mm²", "B) 2.5 mm²", "C) 4 mm²", "D) 6 mm²"], corr: 1, exp: "Sección normalizada de 2.5 mm²." },
+            { id: 35, tema: "Tema 3", dif: "Medio", preg: "35. Calibre del PIA para el circuito C2:", ops: ["A) 10 A", "B) 16 A", "C) 20 A", "D) 25 A"], corr: 1, exp: "Protección mediante automático PIA de 16 A." },
+            { id: 36, tema: "Tema 3", dif: "Medio", preg: "36. Instrucción del REBT para instalaciones interiores de vivienda:", ops: ["A) ITC-BT-10", "B) ITC-BT-19", "C) ITC-BT-25", "D) ITC-BT-52"], corr: 2, exp: "La ITC-BT-25 regula los circuitos de vivienda." },
+            { id: 37, tema: "Tema 3", dif: "Alto", preg: "37. Diámetro mínimo de tubo corrugado empotrado para 3 cables de 2.5 mm²:", ops: ["A) 12 mm", "B) 16 mm", "C) 20 mm", "D) 25 mm"], corr: 1, exp: "Diámetro mínimo de 16 mm según ITC-BT-21." },
+            { id: 38, tema: "Tema 3", dif: "Alto", preg: "38. Caída de tensión máxima en instalación interior de vivienda:", ops: ["A) 3%", "B) 1.5%", "C) 5%", "D) 10%"], corr: 0, exp: "Límite del 3% de caída de tensión según reglamento." },
+            { id: 39, tema: "Tema 3", dif: "Alto", preg: "39. Función del Protector contra Sobretensiones (PCS):", ops: ["A) Derivación a tierra", "B) Evacuar picos transitorios y permanentes por rayo/maniobra", "C) Control de potencia", "D) Disparo por cortocircuito"], corr: 1, exp: "Protege aparatos electrónicos frente a picos de tensión." },
+            { id: 40, tema: "Tema 3", dif: "Alto", preg: "40. Intensidad máxima admisible en cable de 6 mm² empotrado (Método B1):", ops: ["A) 16 A", "B) 25 A", "C) 36 A", "D) 50 A"], corr: 2, exp: "Admite aproximadamente 36 A continuos." },
+            { id: 41, tema: "Tema 3", dif: "Alto", preg: "41. Número máximo de puntos de luz por circuito C1:", ops: ["A) 10 puntos", "B) 20 puntos", "C) 30 puntos", "D) Sin límite"], corr: 1, exp: "Limitado a un máximo de 20 puntos por PIA." },
+            { id: 42, tema: "Tema 3", dif: "Extrema Dificultad", preg: "42. Corriente de cortocircuito instantánea en PIA curva C de 16A:", ops: ["A) 16 A", "B) 80 A", "C) 160 A", "D) 320 A"], corr: 2, exp: "I_disparo = 10 · In = 160 A." },
+            { id: 43, tema: "Tema 3", dif: "Extrema Dificultad", preg: "43. Sección y PIA para circuito C4 (Lavadora / Termo):", ops: ["A) 2.5 mm² / 16A", "B) 4 mm² / 20A", "C) 6 mm² / 25A", "D) 10 mm² / 32A"], corr: 1, exp: "Conductores de 4 mm² y automático de 20 A." },
+            { id: 44, tema: "Tema 3", dif: "Extrema Dificultad", preg: "44. Protección diferencial exigida para Vehículo Eléctrico (ITC-BT-52):", ops: ["A) Tipo AC standard", "B) Clase A o B con detección en CC", "C) Sin diferencial", "D) PIA de 40A"], corr: 1, exp: "Exige diferencial inmunizado tipo A o B." },
+            { id: 45, tema: "Tema 3", dif: "Extrema Dificultad", preg: "45. Coeficiente de reducción de intensidad por 5 cables cargados en un tubo:", ops: ["A) 1.00", "B) 0.80", "C) 0.60", "D) 0.45"], corr: 2, exp: "Factor por agrupamiento de aproximadamente 0.60." },
+            { id: 46, tema: "Tema 4", dif: "Medio", preg: "46. Previsión mínima de potencia en Electrificación Básica:", ops: ["A) 3450 W", "B) 5750 W", "C) 9200 W", "D) 11500 W"], corr: 1, exp: "5750 W a 230V de potencia de diseño." },
+            { id: 47, tema: "Tema 4", dif: "Medio", preg: "47. Obligatoriedad de Electrificación Elevada:", ops: ["A) Superficie > 160 m² o aire acondicionado/calefacción", "B) Mas de 2 dormitorios", "C) Con garaje", "D) Optativo"], corr: 0, exp: "Superficie útil superior a 160 m² o previsión de grandes consumos." },
+            { id: 48, tema: "Tema 4", dif: "Medio", preg: "48. Circuito independiente para cocina y horno:", ops: ["A) C1", "B) C2", "C) C3", "D) C5"], corr: 2, exp: "Circuito exclusivo C3." },
+            { id: 49, tema: "Tema 4", dif: "Medio", preg: "49. Sección y PIA asignados al circuito C3 (Cocina/Horno):", ops: ["A) 2.5 mm² / 16A", "B) 4 mm² / 20A", "C) 6 mm² / 25A", "D) 10 mm² / 32A"], corr: 2, exp: "Conductores de 6 mm² con automático de 25 A." },
+            { id: 50, tema: "Tema 4", dif: "Medio", preg: "50. Circuito para tomas de baño y auxiliares de cocina:", ops: ["A) C1", "B) C2", "C) C4", "D) C5"], corr: 3, exp: "Circuito C5 exclusivo." },
+            { id: 51, tema: "Tema 4", dif: "Medio", preg: "51. Ubicación reglamentaria del CGMP en vivienda:", ops: ["A) Junto a la entrada (altura 1.40m a 2.00m)", "B) En contadores", "C) Exterior", "D) Dormitorio"], corr: 0, exp: "Acceso inmediato en el interior del inmueble." },
+            { id: 52, tema: "Tema 4", dif: "Alto", preg: "52. Número de circuitos mínimos en Electrificación Básica:", ops: ["A) 3 circuitos", "B) 5 circuitos (C1 a C5)", "C) 8 circuitos", "D) 12 circuitos"], corr: 1, exp: "5 circuitos obligatorios (C1 a C5)." },
+            { id: 53, tema: "Tema 4", dif: "Alto", preg: "53. Calibre de IGA para 9200 W en electrificación elevada:", ops: ["A) 25 A", "B) 32 A", "C) 40 A", "D) 63 A"], corr: 2, exp: "I = 9200 / 230 = 40 A." },
+            { id: 54, tema: "Tema 4", dif: "Alto", preg: "54. Máximo número de PIAs por cada Interruptor Diferencial:", ops: ["A) 3 PIAs", "B) 5 PIAs", "C) 10 PIAs", "D) Sin límite"], corr: 1, exp: "Máximo 5 circuitos por cada diferencial de 30mA." },
+            { id: 55, tema: "Tema 4", dif: "Alto", preg: "55. Prohibición total de mecanismos en cuartos de baño:", ops: ["A) Volúmenes 0 y 1", "B) Solo Volumen 0", "C) Volumen 3", "D) En ninguno"], corr: 0, exp: "Prohibidos en zonas húmedas de peligro directo (Vol. 0 y 1)." },
+            { id: 56, tema: "Tema 4", dif: "Alto", preg: "56. Circuito para Aire Acondicionado en electrificación elevada:", ops: ["A) C7", "B) C9", "C) C10", "D) C12"], corr: 1, exp: "Circuito C9 asignado." },
+            { id: 57, tema: "Tema 4", dif: "Extrema Dificultad", preg: "57. Potencia total para 20 viviendas básicas (5750W) con coeficiente simultaneidad = 15.3:", ops: ["A) 115 kW", "B) 87.97 kW", "C) 57.5 kW", "D) 45 kW"], corr: 1, exp: "P = 5750 · 15.3 = 87975 W = 87.97 kW." },
+            { id: 58, tema: "Tema 4", dif: "Extrema Dificultad", preg: "58. Sección de Derivación Individual para L=35m, I=40A e e_max=3.45V:", ops: ["A) 6 mm²", "B) 10 mm²", "C) 16 mm²", "D) 25 mm²"], corr: 2, exp: "S_calculada = 14.44 mm² -> Normalizada superior: 16 mm²." },
+            { id: 59, tema: "Tema 4", dif: "Extrema Dificultad", preg: "59. Función del IGA omnipolar independiente del contador:", ops: ["A) Corte simétrico Fase+Neutro interno por seguridad", "B) Ahorro", "C) Bloquear telegestión", "D) Solo trifásica"], corr: 0, exp: "Garantiza el aislamiento seguro del usuario." },
+            { id: 60, tema: "Tema 4", dif: "Extrema Dificultad", preg: "60. Sección y protección del circuito C11 de automatización domótica:", ops: ["A) 1.5 mm² / PIA 10A", "B) 2.5 mm² / PIA 16A", "C) 0.75 mm² / Fusible 2A", "D) Sin protección"], corr: 0, exp: "Sección de 1.5 mm² y automático de 10 A." }
+        ];
+
+        const TAREAS_INICIALES = [
+            { id: 1, tema: "Tema 1", titulo: "Análisis e Interpretación de Esquemas de Alumbrado Básico e Identificación de Mecanismos", desc: "1. Describe la diferencia funcional y constructiva entre un Interruptor Simple, un Conmutador Simple y un Conmutador de Cruce.\n2. Dibuja el esquema multifilar y unifilar de 1 punto de luz accionado desde 2 puntos.\n3. Indica los colores reglamentarios de los conductores según el REBT." },
+            { id: 2, tema: "Tema 2", titulo: "Cálculo y Esquematización de Circuitos Combinados y Cargas Especiales", desc: "1. Diseña el esquema multifilar para el alumbrado de un pasillo largo con 4 puntos de encendido y 2 tomas de corriente (2p+T).\n2. Calcula la intensidad nominal e I total absorbida por 6 luminarias LED de 18W a 230V con cos φ = 0.9." },
+            { id: 3, tema: "Tema 3", titulo: "Dimensionado y Selección de Protecciones de Circuitos según el REBT", desc: "1. Indica la sección mínima y diámetro de tubo corrugado para las líneas C1 (alumbrado 10A) y C2 (tomas 16A).\n2. Especifica la caída de tensión máxima (%) permitida en alumbrado e instalaciones interiores." },
+            { id: 4, tema: "Tema 4", titulo: "Diseño del Cuadro General de Mando y Protección (CGMP) y Previsión de Cargas", desc: "1. Determina el grado de electrificación para una vivienda de 7360W y calcula su IGA.\n2. Dibuja el esquema unifilar del CGMP incluyendo IGA, PCS, Diferencial y los PIAs de C1 a C5." }
+        ];
+
+        let respuestasAlumno = {};
+
+        function obtenerAlumnos() {
+            const base = ALUMNOS_NOMBRES_BASE.map((n, i) => ({ id: i + 1, nombre: n, faltas: 0, p: 7.5, ex: 6.0, ej: 8.0, ac: 9.0 }));
+            const guardados = localStorage.getItem('fp_data_v6');
+            if (!guardados) return base;
+            try {
+                const parsed = JSON.parse(guardados);
+                return (Array.isArray(parsed) && parsed.length > 0) ? parsed : base;
+            } catch (e) { return base; }
+        }
+
+        let alumnosData = obtenerAlumnos();
+        let tareasData = JSON.parse(localStorage.getItem('fp_tareas_v6')) || TAREAS_INICIALES;
+
+        function guardar() {
+            localStorage.setItem('fp_data_v6', JSON.stringify(alumnosData));
+            localStorage.setItem('fp_tareas_v6', JSON.stringify(tareasData));
+        }
+
+        function toggleFormAlumno() {
+            document.getElementById('form-alumno-container').classList.toggle('hidden');
+        }
+
+        function guardarNuevoAlumno() {
+            const nombre = document.getElementById('na-nombre').value.trim();
+            if (!nombre) { alert('Por favor, escribe el nombre completo del alumno.'); return; }
+            const nuevoId = alumnosData.length > 0 ? Math.max(...alumnosData.map(a => a.id)) + 1 : 1;
+            alumnosData.push({ id: nuevoId, nombre: nombre, faltas: 0, p: 7.0, ex: 5.0, ej: 7.0, ac: 8.0 });
+            guardar();
+            document.getElementById('na-nombre').value = '';
+            toggleFormAlumno();
+            renderAlumnos();
+            renderCalificaciones();
+        }
+
+        function renderAlumnos() {
+            const grid = document.getElementById('grid-alumnos');
+            grid.innerHTML = '';
+            
+            document.getElementById('count-alumnos').innerText = alumnosData.length;
+            document.getElementById('badge-total-alumnos').innerText = alumnosData.length + " Estudiantes";
+
+            alumnosData.forEach(a => {
+                let badge = '';
+                if (a.faltas >= 9) badge = '<span class="badge badge-danger">Aviso 15%</span>';
+                else if (a.faltas >= 6) badge = '<span class="badge badge-warning">Aviso 10%</span>';
+                grid.innerHTML += `
+                    <div class="alumno-box">
+                        <div class="alumno-name">
+                            <span>${a.id}. ${a.nombre}</span>
+                            ${badge}
+                        </div>
+                        <div style="font-size: 12px; color: #64748b;">Faltas Injustificadas: <b>${a.faltas}</b></div>
+                        <div class="btn-group">
+                            <button class="btn btn-add" onclick="modFalta(${a.id}, 1)">+ Falta</button>
+                            <button class="btn btn-sub" onclick="modFalta(${a.id}, -1)">- Falta</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function modFalta(id, d) {
+            let a = alumnosData.find(x => x.id === id);
+            if (a) {
+                a.faltas = Math.max(0, a.faltas + d);
+                guardar();
+                renderAlumnos();
+            }
+        }
+
+        function toggleFormTarea() {
+            document.getElementById('form-tarea-container').classList.toggle('hidden');
+        }
+
+        function guardarNuevaTarea() {
+            const tema = document.getElementById('nt-tema').value;
+            const titulo = document.getElementById('nt-titulo').value.trim();
+            const desc = document.getElementById('nt-desc').value.trim();
+            if (!titulo) { alert('Por favor, indica un título para la tarea.'); return; }
+            tareasData.push({ id: Date.now(), tema, titulo, desc: desc || "Sin instrucciones adicionales." });
+            guardar();
+            document.getElementById('nt-titulo').value = '';
+            document.getElementById('nt-desc').value = '';
+            toggleFormTarea();
+            renderTareas();
+        }
+
+        function renderTareas() {
+            const cont = document.getElementById('lista-tareas');
+            const filtro = document.getElementById('filtro-tema-tarea').value;
+            cont.innerHTML = '';
+            const filtradas = filtro === 'TODOS' ? tareasData : tareasData.filter(t => t.tema === filtro);
+            if (filtradas.length === 0) {
+                cont.innerHTML = '<p style="font-size: 13px; color: #64748b; padding: 12px;">No hay tareas para este tema.</p>';
+                return;
+            }
+            filtradas.forEach(t => {
+                cont.innerHTML += `
+                    <div class="tarea-box">
+                        <div class="tarea-header">
+                            <span class="tarea-title">${t.titulo}</span>
+                            <span class="badge-tema">${t.tema}</span>
+                        </div>
+                        <div class="tarea-desc">${t.desc}</div>
+                    </div>
+                `;
+            });
+        }
+
+        function resetAndRenderTests() {
+            respuestasAlumno = {};
+            document.getElementById('score-banner').classList.add('hidden');
+            renderTests();
+        }
+
+        function renderTests() {
+            const cont = document.getElementById('lista-preguntas-tests');
+            const fTema = document.getElementById('filtro-test-tema').value;
+            const fDif = document.getElementById('filtro-test-dif').value;
+            const modo = document.getElementById('modo-vista-test').value;
+            
+            cont.innerHTML = '';
+            let lista = PREGUNTAS_BANCO;
+            if (fTema !== 'TODOS') lista = lista.filter(p => p.tema === fTema);
+            if (fDif !== 'TODOS') lista = lista.filter(p => p.dif === fDif);
+
+            if (lista.length === 0) {
+                cont.innerHTML = '<p style="font-size: 13px; color: #64748b; padding: 12px;">No hay preguntas que coincidan con los filtros seleccionados.</p>';
+                document.getElementById('btn-calcular-container').classList.add('hidden');
+                return;
+            }
+
+            if (modo === 'INTERACTIVO') {
+                document.getElementById('btn-calcular-container').classList.remove('hidden');
+            } else {
+                document.getElementById('btn-calcular-container').classList.add('hidden');
+                document.getElementById('score-banner').classList.add('hidden');
+            }
+
+            lista.forEach(p => {
+                let badgeClass = p.dif === 'Medio' ? 'dif-medio' : p.dif === 'Alto' ? 'dif-alto' : 'dif-extrema';
+                let htmlOpciones = '';
+
+                if (modo === 'INTERACTIVO') {
+                    htmlOpciones = '<div class="opciones-interactive">';
+                    p.ops.forEach((op, idx) => {
+                        let checked = (respuestasAlumno[p.id] === idx) ? 'checked' : '';
+                        htmlOpciones += `
+                            <label class="opcion-label" id="label-p${p.id}-op${idx}">
+                                <input type="radio" name="preg_${p.id}" value="${idx}" ${checked} onchange="marcarRespuesta(${p.id}, ${idx})">
+                                <span>${op}</span>
+                            </label>
+                        `;
+                    });
+                    htmlOpciones += '</div>';
+                } else {
+                    htmlOpciones = '<ul style="margin-left:20px; font-size:13px;">';
+                    p.ops.forEach((op, idx) => {
+                        let esCorr = (idx === p.corr);
+                        htmlOpciones += `<li class="${esCorr ? 'opcion-correcta-highlight' : ''}" style="padding:4px 8px; border-radius:4px; margin-bottom:4px;">${op}</li>`;
+                    });
+                    htmlOpciones += '</ul>';
+                }
+
+                let htmlExplicacion = (modo === 'DOCENTE') ? `<div class="explicacion">💡 <b>Justificación técnica:</b> ${p.exp}</div>` : `<div id="exp-${p.id}" class="explicacion hidden">💡 <b>Justificación técnica:</b> ${p.exp}</div>`;
+
+                cont.innerHTML += `
+                    <div class="pregunta-card" id="card-p${p.id}">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span class="badge-tema">${p.tema}</span>
+                            <span class="badge-dif ${badgeClass}">${p.dif}</span>
+                        </div>
+                        <div class="pregunta-title">${p.preg}</div>
+                        ${htmlOpciones}
+                        ${htmlExplicacion}
+                    </div>
+                `;
+            });
+        }
+
+        function marcarRespuesta(pId, opIdx) {
+            respuestasAlumno[pId] = opIdx;
+        }
+
+        function calcularYCorregirTest() {
+            const fTema = document.getElementById('filtro-test-tema').value;
+            const fDif = document.getElementById('filtro-test-dif').value;
+            let lista = PREGUNTAS_BANCO;
+            if (fTema !== 'TODOS') lista = lista.filter(p => p.tema === fTema);
+            if (fDif !== 'TODOS') lista = lista.filter(p => p.dif === fDif);
+
+            let aciertos = 0;
+            let fallos = 0;
+            let respondidas = 0;
+
+            lista.forEach(p => {
+                let card = document.getElementById(`card-p${p.id}`);
+                let exp = document.getElementById(`exp-${p.id}`);
+                let seleccionada = respuestasAlumno[p.id];
+
+                if (card) card.classList.remove('correcta', 'incorrecta');
+                if (exp) exp.classList.add('hidden');
+
+                p.ops.forEach((_, idx) => {
+                    let lbl = document.getElementById(`label-p${p.id}-op${idx}`);
+                    if (lbl) lbl.classList.remove('opcion-correcta-highlight', 'opcion-incorrecta-highlight');
+                });
+
+                if (seleccionada !== undefined) {
+                    respondidas++;
+                    if (seleccionada === p.corr) {
+                        aciertos++;
+                        if (card) card.classList.add('correcta');
+                        let lblCorr = document.getElementById(`label-p${p.id}-op${seleccionada}`);
+                        if (lblCorr) lblCorr.classList.add('opcion-correcta-highlight');
+                    } else {
+                        fallos++;
+                        if (card) card.classList.add('incorrecta');
+                        let lblInc = document.getElementById(`label-p${p.id}-op${seleccionada}`);
+                        let lblCorr = document.getElementById(`label-p${p.id}-op${p.corr}`);
+                        if (lblInc) lblInc.classList.add('opcion-incorrecta-highlight');
+                        if (lblCorr) lblCorr.classList.add('opcion-correcta-highlight');
+                        if (exp) exp.classList.remove('hidden');
+                    }
+                } else {
+                    let lblCorr = document.getElementById(`label-p${p.id}-op${p.corr}`);
+                    if (lblCorr) lblCorr.classList.add('opcion-correcta-highlight');
+                    if (exp) exp.classList.remove('hidden');
+                }
+            });
+
+            let totalPreguntas = lista.length;
+            let nota = (aciertos / totalPreguntas) * 10;
+
+            document.getElementById('score-banner').classList.remove('hidden');
+            document.getElementById('score-number').innerText = nota.toFixed(2) + " / 10";
+            document.getElementById('score-details').innerText = `Total preguntas: ${totalPreguntas} | Respondidas: ${respondidas} | Aciertos: ${aciertos} | Fallos: ${fallos}`;
+            
+            window.scrollTo({ top: document.getElementById('score-banner').offsetTop - 80, behavior: 'smooth' });
+        }
+
+        function renderCalificaciones() {
+            const tbody = document.getElementById('tbody-calificaciones');
+            tbody.innerHTML = '';
+            alumnosData.forEach(a => {
+                let final = (a.p * 0.4) + (a.ex * 0.3) + (a.ej * 0.2) + (a.ac * 0.1);
+                let color = final >= 5 ? 'color: #15803d; font-weight: bold;' : 'color: #b91c1c; font-weight: bold;';
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${a.nombre}</td>
+                        <td style="text-align:center;"><input type="number" step="0.1" value="${a.p}" onchange="modNota(${a.id}, 'p', this.value)"></td>
+                        <td style="text-align:center;"><input type="number" step="0.1" value="${a.ex}" onchange="modNota(${a.id}, 'ex', this.value)"></td>
+                        <td style="text-align:center;"><input type="number" step="0.1" value="${a.ej}" onchange="modNota(${a.id}, 'ej', this.value)"></td>
+                        <td style="text-align:center;"><input type="number" step="0.1" value="${a.ac}" onchange="modNota(${a.id}, 'ac', this.value)"></td>
+                        <td style="text-align:center; ${color}">${final.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function modNota(id, campo, val) {
+            let a = alumnosData.find(x => x.id === id);
+            if (a) {
+                a[campo] = parseFloat(val) || 0;
+                guardar();
+                renderCalificaciones();
+            }
+        }
+
+        function renderEsquemas() {
+            const cont = document.getElementById('lista-esquemas');
+            cont.innerHTML = '';
+            ESQUEMAS.forEach(e => {
+                cont.innerHTML += `
+                    <div class="tarea-box">
+                        <h3>${e.t}</h3>
+                        <p style="font-size:13px; color:#475569; margin-top:6px;">${e.d}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function renderPracticas() {
+            const cont = document.getElementById('lista-practicas');
+            cont.innerHTML = '';
+            ESQUEMAS.forEach(e => {
+                cont.innerHTML += `
+                    <div class="tarea-box" style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:bold; font-size:13px;">${e.t}</span>
+                        <span style="font-size:11px; background:#e2e8f0; padding:4px 8px; border-radius:4px;">40% Nota Final</span>
+                    </div>
+                `;
+            });
+        }
+
+        window.onload = function() {
+            renderAlumnos();
+            renderTareas();
+            renderTests();
+            renderCalificaciones();
+            renderEsquemas();
+            renderPracticas();
+            mostrarSeccion('alumnos');
+        };
+    </script>
+</body>
+</html>
